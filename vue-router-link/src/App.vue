@@ -64,7 +64,10 @@ to="/find" => 地址栏/find   /find/one   /find/two
 router: link exact active;精确匹配
 to="/find"  => 地址栏   /find
  */
-.footer_wrap a.router-link-exact-active {
+/* .footer_wrap a.router-link-exact-active {
+    background-color: skyblue;
+} */
+.footer_wrap a.active {
     background-color: skyblue;
 }
 </style>
