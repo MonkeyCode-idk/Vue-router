@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <div class="link">
+    <!-- <div class="link">
       <router-link to="/home">首页</router-link>
       <router-link to="/search">搜索页</router-link>
-    </div>
+    </div> -->
     <router-view></router-view>
   </div>
 </template>
@@ -21,6 +21,7 @@ export default {};
   margin: -8px -8px 0 -8px;
   margin-bottom: 50px;
 }
+
 .link a {
   display: block;
   text-decoration: none;
@@ -32,4 +33,3 @@ export default {};
   border-radius: 5px;
 }
 </style>
-
