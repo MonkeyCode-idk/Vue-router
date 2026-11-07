@@ -10,9 +10,9 @@ const router = new VueRouter({
   // mode:'hash'  默认是hash，url带 # 号
   mode: "history",  // 不带# 
   routes: [
-    { path: '/', redirect: '/home  ' },
+    { path: '/', redirect: '/home' },
     { path: '/home', component: Home },
-    { path: '/search/:words?', component: Search },
+    { name: 'search', path: '/search/:words?', component: Search },
     { path: '*', component: NotFind }
   ],
 

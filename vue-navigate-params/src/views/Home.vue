@@ -2,8 +2,8 @@
   <div class="home">
     <div class="logo-box"></div>
     <div class="search-box">
-      <input type="text">
-      <button>搜索一下</button>
+      <input type="text" v-model="inpValue">
+      <button @click="goSearch">搜索一下</button>
     </div>
     <div class="hot-link">
       热门搜索：
@@ -17,7 +17,52 @@
 
 <script>
 export default {
-  name: 'FindMusic'
+  name: 'FindMusic',
+  data() {
+    return {
+      inpValue: ''
+    }
+  },
+  methods: {
+    goSearch() {
+      // 1.通过路径的方式跳转
+      // (1) this.$router.push('路由路径')  [简写]
+      //     this.$router.push('路由路径?参数名=参数值')
+      // this.$router.push('/Search')
+      // this.$router.push(`/Search?key=${this.inpValue}`)
+      // this.$router.push(`/search/${this.inpValue}`)
+      // (2) this.$router.push({    [完整写法] 更适合传参
+      //          path:'路由路径'  
+      //          query:{
+      //          参数名:参数值
+      //          }
+      //      })
+      // this.$router.push({
+      //   path: '/Search',
+      //   query: {
+      //     key: this.inpValue
+      //   }
+      // })
+      // this.$router.push({
+      //   path: `/search/${this.inpValue}`
+      // })
+      // 2. 通过命名路由的方式跳转  （需要给路由起名字） 适合长路径
+      //  this.$router.push({
+      //         name:'路由名'
+      //         query:{参数名:参数值} ,
+      //         parmas:{参数名:参数值}
+      // })
+      this.$router.push({
+        name: 'search',
+        // query: {
+        //   key: this.inpValue
+        // }
+        params: {
+          words: this.inpValue
+        }
+      })
+    }
+  }
 }
 </script>
 
