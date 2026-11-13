@@ -1,15 +1,19 @@
 <template>
     <div class="box">
         <h2>Son2 子组件</h2>
-        从vuex中获取的值:<label></label>
+        从vuex中获取的值:<label>{{ count }}</label>
         <br>
         <button>值 - 1</button>
     </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
-    name: 'SonTwo'
+    name: 'SonTwo',
+    computed: {
+        ...mapState(['count'])
+    }
 }
 </script>
 
