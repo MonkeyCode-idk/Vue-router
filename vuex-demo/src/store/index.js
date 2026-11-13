@@ -11,7 +11,8 @@ const store = new Vuex.Store({
     // 1. 通过state 可以提供数据 (所有组件共享的数据)
     state: {
         title: '大标题',
-        count: 100
+        count: 100,
+        list: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     },
 
     // 2.通过 Mutations 可以提供修改数据的方法
@@ -33,8 +34,27 @@ const store = new Vuex.Store({
         changeTitle(state, newTitle) {
             state.title = newTitle
         },
-
-
+    },
+    // 3. actions 处理异步，
+    // 不能直接操作 state，操作state 还是需要 commit mutation
+    actions: {
+        // context 上下文 （此处未分模块，可以当成store仓库）
+        // context.commit('mutation名字',额外参数)
+        changeCountAction(context, num) {
+            // 这里是setTimeout模拟异步，以后大部分场景是发请求
+            setTimeout(() => {
+                context.commit('changeCount', num)
+            }, 1000)
+        }
+    },
+    // 4.getters 类似于计算属性
+    getters: {
+        // 注意点:
+        // 1. 形参第一个参数，就是state
+        // 2. 必须有返回值,返回值就是getters的值 
+        filterList(state) {
+            return state.list.filter(item => item > 5)
+        }
     }
 })
 

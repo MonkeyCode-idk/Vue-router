@@ -6,7 +6,12 @@
         <button @click="handleAdd(1)">值 + 1</button>
         <button @click="handleAdd(5)">值 + 5</button>
         <button @click="handleAdd(10)">值 + 10</button>
+        <button @click="handleChange">一秒后修改成666</button>
         <button @click="changeFn">改标题</button>
+
+        <hr>
+        <div>{{ $store.state.list }}</div>
+        <div>{{ $store.getters.filterList }}</div>
     </div>
 </template>
 
@@ -31,6 +36,11 @@ export default {
                 count: n,
                 mas: '啧啧'
             })
+        },
+        handleChange() {
+            // 调用action
+            // this.$store.dispatch('action名字',额外参数)
+            this.$store.dispatch('changeCountAction', 666)
         },
 
         changeFn() {
