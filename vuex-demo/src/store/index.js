@@ -22,12 +22,19 @@ const store = new Vuex.Store({
             console.log(obj);
 
             // 修改数据
-            state.count += obj.n
+            state.count += obj.count
         },
-
+        subCount(state, newCount) {
+            state.count -= newCount
+        },
+        changeCount(state, n) {
+            state.count = n
+        },
         changeTitle(state, newTitle) {
             state.title = newTitle
-        }
+        },
+
+
     }
 })
 
