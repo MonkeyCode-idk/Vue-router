@@ -11,6 +11,22 @@
 
         <hr>
         <div>{{ filterList }}</div>
+        <hr>
+        <!-- 访问模块中的state -->
+        <div>{{ user.userInfo.name }}</div>
+        <div>{{ setting.theme }}</div>
+        <hr>
+        <!-- 访问模块中的state -->
+        <div>{{ userInfo }}</div>
+        <button @click="setUser({ name: 'gtg', age: 19 })">更新个人信息</button>
+        <button @click="setUserSecond({ name: 'gzm', age: 14 })">一秒后更新个人信息</button>
+
+        <div>setting模块的数据:{{ theme }} - {{ desc }}</div>
+        <button @click="setTheme('skyblue')">更新主题</button>
+        <hr>
+        <!-- 访问模块中的getters -->
+        <div>{{ UpperCaseName }}</div>
+        <div></div>
     </div>
 </template>
 
@@ -20,17 +36,25 @@ export default {
     name: 'SonTwo',
     computed: {
         // mapState 和 mapGetters 都是映射属性
-        ...mapState(['count']),
+        ...mapState(['count', 'user', 'setting']),
         ...mapGetters(['filterList']),
+        ...mapState('user', ['userInfo']),
+        ...mapState('setting', ['theme', 'desc']),
+        ...mapGetters('user', ['UpperCaseName'])
     },
     methods: {
         // mapMutations 和 mapActions   都是映射方法
+        // 全局级别的映射
         ...mapMutations(['subCount', 'changeTitle']),
         ...mapActions(['changeCountAction']),
 
-        handleSub(n) {
-            this.subCount(n)
-        },
+        // 分模块的映射
+        ...mapMutations('setting', ['setTheme']),
+        ...mapMutations('user', ['setUser']),
+        ...mapActions('user', ['setUserInfo'])
+        // handleSub(n) {
+        //     this.subCount(n)
+        // },
     }
 }
 </script>
