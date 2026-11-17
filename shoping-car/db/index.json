@@ -1,0 +1,43 @@
+{
+  "cart": [
+    {
+      "id": "100001",
+      "name": "张元英同款金扣半拉链粗跟长筒骑士靴",
+      "price": 499,
+      "count": 9,
+      "thumb": "/assets/boots1.jpg"
+    },
+    {
+      "id": "100002",
+      "name": "复古粗跟骑士靴",
+      "price": 459,
+      "count": 13,
+      "thumb": "/assets/boots2.jpg"
+    },
+    {
+      "id": "100003",
+      "name": "慵懒风堆堆靴",
+      "price": 399,
+      "count": 8,
+      "thumb": "/assets/boots3.jpg"
+    }
+  ],
+  "friends": [
+    {
+      "id": "1",
+      "name": "gtg",
+      "age": 19
+    },
+    {
+      "id": "2",
+      "name": "gzm",
+      "age": 14
+    },
+    {
+      "id": "3",
+      "name": "ym",
+      "age": 30
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
