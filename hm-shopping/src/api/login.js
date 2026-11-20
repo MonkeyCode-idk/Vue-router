@@ -16,3 +16,14 @@ export const getMsgCode = (captchaCode, captchaKey, mobil) => {
         }
     })
 }
+// 3.登录接口
+export const codeLogin = (mobile, smsCode) => {
+    return request.post('/passport/login', {
+        form: {
+            isParty: false,
+            partyData: {},
+            mobile,
+            smsCode
+        }
+    })
+}

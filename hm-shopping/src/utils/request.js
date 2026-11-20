@@ -4,7 +4,9 @@ import axios from "axios";
 const instance = axios.create({
     baseURL: '/api',
     timeout: 5000,
-    // headers: { 'X-Custom-Header': 'foobar' }
+    headers: {
+        platform: 'h5',
+    }
 });
 
 // 自定义配置 - 请求/响应 拦截器
@@ -25,6 +27,8 @@ instance.interceptors.response.use(function (response) {
 }, function (error) {
     // 超出 2xx 范围的状态码都会触发该函数。
     // 对响应错误做点什么
+    console.log('加载超时');
+
     return Promise.reject(error);
 });
 // 导出配置好的实例
