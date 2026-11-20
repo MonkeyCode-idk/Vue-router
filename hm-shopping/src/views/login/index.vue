@@ -83,9 +83,9 @@ export default {
             }
             // 当目前没有定时器开着，且 totalSecond 和 second 一致(秒数归为) 才可以倒计时
             if (!this.timer && this.second === this.totalSecond) {
-
-                // 发送请求
+                // 发送请求 （预期:希望如果响应的status非200，最好抛出一个promise错误,await只会等待成功的promise）
                 await getMsgCode(this.picCode, this.picKey, this.mobile)
+
                 this.$toast.success('短信发送成功,注意查收')
 
                 // 开启倒计时
@@ -118,6 +118,7 @@ export default {
             }
 
             const res = await codeLogin(this.mobile, this.msgCode)
+            this.$store.commit('user/setUserInfo', res.data)
             console.log(res);
             this.$toast.success('登陆成功')
             this.$router.push('/')
