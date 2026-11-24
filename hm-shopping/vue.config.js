@@ -17,9 +17,10 @@ module.exports = defineConfig({
         target: 'https://smart-shop.itheima.net',
         changeOrigin: true,
         pathRewrite: {
-          '^/api': '/index.php?s=/api'
+          '^/api': ''
         }
       }
     }
   }
 })
+// http://smart-shop.itheima.net/index.php?s=/api/goods/list

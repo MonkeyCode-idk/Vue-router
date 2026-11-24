@@ -14,6 +14,17 @@ const instance = axios.create({
 // 添加请求拦截器
 instance.interceptors.request.use(function (config) {
     // 在发送请求之前做些什么
+    // 如果是mock接口：以 /mock 开头，不拼接前缀
+    if (config.url.startsWith('/mock')) {
+        // mock 不做任何拼接，直接放行
+        return config
+    }
+    // 不是mock，并且还没加前缀，才拼接
+    if (!config.url.startsWith('/index.php?s=/api')) {
+        config.url = '/index.php?s=/api' + config.url
+    }
+
+    console.log('【最终请求url】', config.url)
     // 开启loading，禁止背景点击（节流处理，防止多次无效触发）
     Toast.loading({
         message: '加载中...',
