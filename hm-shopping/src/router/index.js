@@ -33,7 +33,7 @@ const router = new VueRouter({
     // 动态路由传参，确认将来是哪个商品，路由参数中携带 id
     { path: '/prodetail/:id', component: ProDetail },
     { path: '/search', component: Search },
-    { path: '/search/list', component: SearchList }
+    { path: '/searchlist', component: SearchList }
   ]
 })
 

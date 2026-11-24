@@ -12,9 +12,9 @@ module.exports = defineConfig({
         changeOrigin: true,
         pathRewrite: { '^/api/mock': '' }
       },
-      // 其余 /api 继续走黑马
+      // 其余 /api 直接转发到黑马后端（支持 PATHINFO 路由）
       '/api': {
-        target: 'http://smart-shop.itheima.net',
+        target: 'https://smart-shop.itheima.net',
         changeOrigin: true,
         pathRewrite: {
           '^/api': '/index.php?s=/api'
