@@ -57,8 +57,11 @@ export default {
         // console.log(pageData.items[1].data);
         this.bannerList = pageData.items[1].data
         this.navList = pageData.items[3].data
+        pageData.items[6].data.forEach(item => {
+            item.goods_image = item.goods_image.replace(/https?:\/\/localhost:8080/,
+                'https://smart-shop.itheima.net')
+        })
         this.proList = pageData.items[6].data
-
     }
 }
 </script>
