@@ -103,7 +103,8 @@
                 <div class="num-box">
                     <span>数量</span>
                     <!-- v-model 本质上 :value 和 @input 的简写 -->
-                    <CountBox :addCount.sync="addCount" :stock_total.sync="detail.stock_total"></CountBox>
+                    <!-- v-model 负责双向绑定数量，stock 单独传库存 -->
+                    <CountBox v-model="addCount" :stock="detail.stock_total" />
                 </div>
                 <!-- 有库存才显示提交按钮 -->
                 <div class="showbtn" v-if="detail.stock_total > 0">
