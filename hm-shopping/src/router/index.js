@@ -11,6 +11,7 @@ import Cart from '@/views/layout/cart.vue'
 import User from '@/views/layout/user.vue'
 import Category from '@/views/layout/category.vue'
 import Home from '@/views/layout/home.vue'
+import addressList from '@/views/pay/addressList.vue'
 
 import store from '@/store'
 Vue.use(VueRouter)
@@ -33,7 +34,8 @@ const router = new VueRouter({
     // 动态路由传参，确认将来是哪个商品，路由参数中携带 id
     { path: '/prodetail/:id', component: ProDetail },
     { path: '/search', component: Search },
-    { path: '/searchlist', component: SearchList }
+    { path: '/searchlist', component: SearchList },
+    { path: '/addressList', component: addressList }
   ]
 })
 

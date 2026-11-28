@@ -1,5 +1,6 @@
 import { changeCountApi, getCartList, delSelect } from "@/api/cart"
 import { Toast } from "vant"
+import { BASE_URL } from "@/config"
 
 export default {
     namespaced: true,
@@ -50,7 +51,7 @@ export default {
             data.list.forEach(item => {
                 item.isChecked = true
                 item.goods.goods_image = item.goods.goods_image.replace(/https?:\/\/localhost:8080/,
-                    'https://smart-shop.itheima.net')
+                    BASE_URL)
             });
             // console.log(res);
             context.commit('setCartList', data.list)

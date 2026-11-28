@@ -81,13 +81,12 @@
             <div @click="buyFn" class="btn-buy">立刻购买</div>
         </div>
 
-        <!-- 加入购物车的弹层 -->
+        <!-- 加入购物车/立即购买的弹层 共用 -->
         <van-action-sheet v-model="showPannel" :title="mode === 'cart' ? '加入购物车' : '立刻购买'">
             <div class="product">
                 <div class="product-title">
                     <div class="left">
-                        <img :src="detail.goods_image.replace(/https?:\/\/localhost:8080/g, 'https://smart-shop.itheima.net')"
-                            alt="">
+                        <img :src="detail.goods_image.replace(/https?:\/\/localhost:8080/g, BASE_URL)" alt="">
                     </div>
                     <div class="right">
                         <div class="price">
@@ -109,7 +108,7 @@
                 <!-- 有库存才显示提交按钮 -->
                 <div class="showbtn" v-if="detail.stock_total > 0">
                     <div class="btn" v-if="mode === 'cart'" @click="addCart">加入购物车</div>
-                    <div class="btn now" v-else>立刻购买</div>
+                    <div class="btn now" v-else @click="goBuyNow">立刻购买</div>
                 </div>
                 <div class="btn-none" v-else>该商品已抢完</div>
             </div>
@@ -122,8 +121,11 @@ import { getProDetail, getProComments } from '@/api/product';
 import defaultImg from '@/assets/default-avatar.png'
 import CountBox from '@/components/CountBox.vue';
 import { addCart } from '@/api/cart'
+import { BASE_URL } from '@/config';
+import loginConfirm from '@/mixins/loginConfirm';
 export default {
     name: 'ProDetail',
+    mixins: [loginConfirm,],
     components: {
         CountBox
     },
@@ -139,6 +141,7 @@ export default {
             mode: 'cart', // 标记弹层状态
             addCount: 1, // 数字框绑定的数据
             cartTotal: 0, // 购物车小标
+            BASE_URL
         }
     },
     computed: {
@@ -161,7 +164,7 @@ export default {
             let newList = detail.goods_images.map(item => {
                 item.external_url = item.external_url.replace(
                     /https?:\/\/localhost:8080/,
-                    'https://smart-shop.itheima.net'
+                    BASE_URL
                 )
                 return item
             })
@@ -182,31 +185,9 @@ export default {
             this.mode = 'buyNow'
             this.showPannel = true
         },
+
         async addCart() {
-            // 判断 token 是否存在
-            // 1.如果token 不存在，弹确认框
-            // 2.如果token存在，继续请求操作
-            if (!this.$store.getters.token) {
-                // 弹确认框
-                // console.log('弹确认框');
-                this.$dialog.confirm({
-                    title: '温馨提示',
-                    message: '此时需要先登录才能继续操作哦',
-                    confirmButtonText: '去登陆',
-                    cancelButtonText: '再逛逛'
-                })
-                    .then(() => {
-                        // 如果希望，跳转到登录 => 登陆后能回跳回来，需要在跳转去携带参数（当前的路径地址）
-                        // this.$route.fullPath(会包含查询参数)
-                        // replace不会产生新的跳转记录，只会在原路径页面复写记录
-                        this.$router.replace({
-                            path: '/login',
-                            query: {
-                                backUrl: this.$route.fullPath
-                            }
-                        })
-                    })
-                    .catch(() => { })
+            if (this.loginConfirm()) {
                 return
             }
             const { data } = await addCart(this.goodsId, this.addCount, this.detail.skuList[0].goods_sku_id)
@@ -214,11 +195,24 @@ export default {
             this.$toast('加入购物车成功')
             this.showPannel = false
             console.log(this.cartTotal);
-
             // console.log('正常请求');
             // console.log(res);
-
-
+        },
+        goBuyNow() {
+            if (this.loginConfirm()) {
+                return
+            }
+            // 未登录的处理：需要弹出一个确认框 
+            // 您当前的操作需要登录才能继续 => 去登陆 再逛逛
+            this.$router.push({
+                path: '/pay',
+                query: {
+                    mode: 'buyNow',
+                    goodsId: this.goodsId,
+                    goodsSkuId: this.detail.skuList[0].goods_sku_id,
+                    goodsNum: this.addCount
+                }
+            })
         }
     }
 }

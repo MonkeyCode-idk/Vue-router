@@ -39,6 +39,7 @@
 <script>
 import { getHomeDate } from '@/api/home';
 import GoodsItem from '@/components/GoodsItem.vue'
+import { BASE_URL } from '@/config';
 export default {
     name: 'HomePage',
     components: {
@@ -59,7 +60,7 @@ export default {
         this.navList = pageData.items[3].data
         pageData.items[6].data.forEach(item => {
             item.goods_image = item.goods_image.replace(/https?:\/\/localhost:8080/,
-                'https://smart-shop.itheima.net')
+                BASE_URL)
         })
         this.proList = pageData.items[6].data
     }

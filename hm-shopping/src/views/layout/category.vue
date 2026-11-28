@@ -30,6 +30,7 @@
 
 <script>
 import { getCategoryData } from '@/api/category'
+import { BASE_URL } from '@/config';
 export default {
     name: 'CategoryPage',
     created() {
@@ -52,7 +53,7 @@ export default {
                         if (sub.image?.external_url) {
                             sub.image.external_url = sub.image.external_url.replace(
                                 /https?:\/\/localhost:8080/,
-                                'https://smart-shop.itheima.net'
+                                BASE_URL
                             )
                         }
                         return sub
